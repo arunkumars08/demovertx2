@@ -28,7 +28,8 @@ def utils = new io.fabric8.Utils()
 def label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replace('-', '_').replace('/', '_')
 
 mavenNode{
-  git GIT_URL
+  git 'https://github.com/jstrachan/demovertx2.git'
+  
   if (utils.isCI()){
     
     mavenCI{}
