@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-@Library('github.com/fabric8io/fabric8-pipeline-library@master')
+@Library('github.com/msrb/fabric8-pipeline-library@job-name-fix')
 
 def failIfNoTests = ""
 try {
@@ -28,13 +28,14 @@ def utils = new io.fabric8.Utils()
 def label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replace('-', '_').replace('/', '_')
 
 mavenNode{
-  git 'https://github.com/jstrachan/demovertx2.git'
+  git 'https://github.com/msrb/demovertx2.git'
   
   if (utils.isCI()){
     
     mavenCI{}
     
   } else if (utils.isCD()){
+    echo "JOB_NAME=${env.JOB_NAME}"
   
     echo 'NOTE: running pipelines for the first time will take longer as build and base docker images are pulled onto the node'
     container(name: 'maven') {
